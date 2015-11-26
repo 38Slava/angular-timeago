@@ -54,6 +54,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'circa %d ore',
         day: 'un giorno',
         days: '%d giorni',
+        week: '%dw',
         month: 'circa un mese',
         months: '%d mesi',
         year: 'circa un anno',
@@ -72,6 +73,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'about %d hours',
         day: 'a day',
         days: '%d days',
+        week: '%dw',
         month: 'about a month',
         months: '%d months',
         year: 'about a year',
@@ -90,6 +92,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'ca. %d Stunden',
         day: 'einem Tag',
         days: '%d Tagen',
+        week: '%dw',
         month: 'ca. einem Monat',
         months: '%d Monaten',
         year: 'ca. einem Jahr',
@@ -108,6 +111,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'כ %d שעות',
         day: 'יום',
         days: '%d ימים',
+        week: '%dw',
         month: 'כחודש',
         months: '%d חודשים',
         year: 'כשנה',
@@ -126,6 +130,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'cerca de %d horas',
         day: 'um dia',
         days: '%d dias',
+        week: '%dw',
         month: 'cerca de um mês',
         months: '%d meses',
         year: 'cerca de um ano',
@@ -144,6 +149,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'prop de %d hores',
         day: 'un dia',
         days: '%d dies',
+        week: '%dw',
         month: 'prop d\'un mes',
         months: '%d mesos',
         year: 'prop d\'un any',
@@ -162,6 +168,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'environ %d heures',
         day: 'un jour',
         days: '%d jours',
+        week: '%dw',
         month: 'environ un mois',
         months: '%d mois',
         year: 'environ un an',
@@ -180,6 +187,7 @@ angular.module('yaru22.angular-timeago', [
         hours: '%d horas',
         day: 'un día',
         days: '%d días',
+        week: '%dw',
         month: 'un mes',
         months: '%d meses',
         year: 'un año',
@@ -198,6 +206,7 @@ angular.module('yaru22.angular-timeago', [
         hours: '%d uur',
         day: 'een dag',
         days: '%d dagen',
+        week: '%dw',
         month: 'een maand',
         months: '%d maanden',
         year: 'een jaar',
@@ -217,6 +226,7 @@ angular.module('yaru22.angular-timeago', [
         hours: '%d小時',
         day: '一日',
         days: '%d日',
+        week: '%dw',
         month: '一個月',
         months: '%d個月',
         year: '一年',
@@ -246,6 +256,7 @@ angular.module('yaru22.angular-timeago', [
         hours: 'cirka %d timmar',
         day: 'en dag',
         days: '%d dagar',
+        week: '%dw',
         month: 'cirka en månad',
         months: '%d månader',
         year: 'cirka ett år',
@@ -299,7 +310,7 @@ angular.module('yaru22.angular-timeago', [
     var minutes = seconds / 60;
     var hours = minutes / 60;
     var days = hours / 24;
-    var years = days / 365;
+    var week = days / 7;
 
     function substitute(stringOrFunction, number) {
       var string = angular.isFunction(stringOrFunction) ?
@@ -314,11 +325,8 @@ angular.module('yaru22.angular-timeago', [
         minutes < 90 && substitute($l.hour, 1) ||
         hours < 24 && substitute($l.hours, Math.round(hours)) ||
         hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.round(days / 30)) ||
-        years < 1.5 && substitute($l.year, 1) ||
-        substitute($l.years, Math.round(years));
+        days < 7 && substitute($l.days, Math.round(days)) ||
+        substitute($l.week, Math.round(week));
 
     var separator = $l.wordSeparator === undefined ?  ' ' : $l.wordSeparator;
     if(lang === 'he_IL'){
